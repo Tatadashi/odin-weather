@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <script src="./index.js"></script>
+    <script src="./index.js" defer></script>
     <title>Weather App</title>
 </head>
 <body>
+    <form>
+        <p>
+            <label for="location">Enter location you wish to see weather for</label>
+            <input type="text" pattern="[a-zA-Z ]+" name="location" id="location" required />
+        </p>
+        <button type="submit">Search</button>
+    </form>
 </body>
 </html>

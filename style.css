@@ -1,3 +1,7 @@
 body {
-    background-color: lavender;
+  background-color: lavender;
+}
+
+button {
+  cursor: pointer;
 }
