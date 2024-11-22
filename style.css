@@ -31,6 +31,7 @@ button {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  align-items: center;
   border: 1px solid blueviolet;
   background-color: aquamarine;
   max-width: 200px;

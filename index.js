@@ -8,11 +8,13 @@ async function getWeather(location) {
     const place = responseJSON.resolvedAddress;
     const days = responseJSON.days;
     const icons = makeDayArrayFromJSON(days, "icon");
+    const dates = makeDayArrayFromJSON(days, "datetime");
     const temps = makeDayArrayFromJSON(days, "temp");
     const fahrenheit = convertCelsiusToFahrenheit(temps);
 
     console.log(responseJSON);
     console.log(place);
+    console.log(dates);
     console.log(icons);
     console.log(fahrenheit);
   } catch (error) {
