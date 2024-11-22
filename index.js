@@ -1,36 +1,46 @@
 async function getWeather(location) {
-    try {
-        const response = await fetch(
-          `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=GG46V6MMQ8NP36L2MC9XM3LWP&contentType=json`,
-          { mode: "cors" }
-        );
-        const responseJSON = await response.json();
-        const place = responseJSON.resolvedAddress;
-        const days = responseJSON.days;
-        const temps = getCelsiusTempFromDays(days);
+  try {
+    const response = await fetch(
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=GG46V6MMQ8NP36L2MC9XM3LWP&contentType=json`,
+      { mode: "cors" }
+    );
+    const responseJSON = await response.json();
+    const place = responseJSON.resolvedAddress;
+    const days = responseJSON.days;
+    const icons = makeDayArrayFromJSON(days, "icon");
+    const temps = makeDayArrayFromJSON(days, "temp");
+    const fahrenheit = convertCelsiusToFahrenheit(temps);
 
-        console.log(place);
-        console.log(temps);
-    } catch (error) {
-        alert('Location Not Found');
-    }
+    console.log(responseJSON);
+    console.log(place);
+    console.log(icons);
+    console.log(fahrenheit);
+  } catch (error) {
+    alert("Location Not Found");
+  }
 }
 
-function getCelsiusTempFromDays(days) {
-  const celsiusTemps = [];
-  days.forEach((day) => {
-    const temp = day.temp;
-    celsiusTemps.push(temp);
+function makeDayArrayFromJSON(json, data) {
+  const array = [];
+  json.forEach((day) => {
+    const specifiedData = day[data];
+    array.push(specifiedData);
   });
 
-  return celsiusTemps;
+  return array;
 }
 
 function convertCelsiusToFahrenheit(temps) {
   const newTemps = [];
   temps.forEach((celsius) => {
+    //remove symbol before doing math conversion and adding new symbol
+    celsius = celsius.toString();
+    celsius = celsius.replace("°C", "");
+    celsius = Number(celsius);
+
     let fahrenheit = (celsius * 9) / 5 + 32;
     fahrenheit = roundToTwoDecimals(fahrenheit);
+    fahrenheit = fahrenheit.toString() + "°F";
     newTemps.push(fahrenheit);
   });
 
@@ -40,8 +50,14 @@ function convertCelsiusToFahrenheit(temps) {
 function convertFahrenheitToCelsius(temps) {
   const newTemps = [];
   temps.forEach((fahrenheit) => {
+    //remove symbol before doing math conversion and adding new symbol
+    fahrenheit = fahrenheit.toString();
+    fahrenheit = fahrenheit.replace("°F", "");
+    fahrenheit = Number(fahrenheit);
+
     let celsius = (5 / 9) * (fahrenheit - 32);
     celsius = roundToTwoDecimals(celsius);
+    celsius = celsius.toString() + "°C";
     newTemps.push(celsius);
   });
 
@@ -59,11 +75,11 @@ function roundToTwoDecimals(num) {
   return num;
 }
 
-const form = document.querySelector('form');
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    let formData = new FormData(form);
-    const location = formData.get('location');
-    getWeather(location);
+  let formData = new FormData(form);
+  const location = formData.get("location");
+  getWeather(location);
 });

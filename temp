@@ -1,3 +1,5 @@
 Visually show weather data
+(do grid for 2 weeks 2x7 but different bigger in center top for current day)
+(get img using giphy?, manual using icon description)
 
 Add loading 

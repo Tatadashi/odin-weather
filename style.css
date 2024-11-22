@@ -2,6 +2,36 @@ body {
   background-color: lavender;
 }
 
+form {
+  display: flex;
+  column-gap: 10px;
+}
+
 button {
   cursor: pointer;
+  margin-block: 10px;
+}
+
+#location,
+#current-day {
+  display: flex;
+  justify-content: center;
+}
+
+.days-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  margin-inline: 50px;
+  margin-top: 10px;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border: 1px solid blueviolet;
+  background-color: aquamarine;
+  max-width: 200px;
 }
