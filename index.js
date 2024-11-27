@@ -12,11 +12,7 @@ async function getWeather(location) {
     const temps = makeDayArrayFromJSON(days, "temp");
     const fahrenheit = convertCelsiusToFahrenheit(temps);
 
-    console.log(responseJSON);
-    console.log(place);
-    console.log(dates);
-    console.log(icons);
-    console.log(fahrenheit);
+    updateWeather(dates, fahrenheit, icons);
   } catch (error) {
     alert("Location Not Found");
   }
@@ -75,6 +71,40 @@ function roundToTwoDecimals(num) {
   }
 
   return num;
+}
+
+function updateWeather (dates, temps, icons) {
+  showCurrentDayData(dates, temps, icons);
+    showDayData(dates, 'date');
+    showDayData(temps, 'temp');
+    showDayData(icons, 'N/A', true);
+}
+
+function showCurrentDayData (dates, temps, icons) {
+  const currentDay = document.getElementById('current-day').querySelector('.day');
+  currentDay.querySelector('.date').textContent = dates[0];
+  currentDay.querySelector(".temp").textContent = temps[0];
+  // currentDay.querySelector('img').src = icons[0];
+  currentDay.querySelector("img").alt = icons[0];
+}
+
+function showDayData (data, dataName, isIcon=false) {
+  const days = document.getElementById('days-container').querySelectorAll('.day');
+
+  //current day not included, so starts at 1
+  let iterator = 1;
+  days.forEach(day => {
+    if (isIcon) {
+      day = day.querySelector('img');
+      // day.src = data[iterator];
+      day.alt = data[iterator];
+      iterator++;
+    } else {
+      day = day.querySelector(`.${dataName}`);
+      day.textContent = data[iterator];
+      iterator++;
+    }
+  });
 }
 
 const form = document.querySelector("form");
