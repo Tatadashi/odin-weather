@@ -12,10 +12,9 @@ async function getWeather(location) {
     const temps = makeDayArrayFromJSON(days, "temp");
     const fahrenheit = convertCelsiusToFahrenheit(temps);
 
-    //WIP
-    // const url = getIconUrlWithName('clear-day');
-    // console.log(url);
-    updateWeather(dates, fahrenheit, icons);
+    const url = getIconUrlWithName('clear-day');
+    console.log(url);
+    updateWeather(dates, fahrenheit, icons, place);
   } catch (error) {
     alert("Location Not Found");
   }
@@ -83,14 +82,17 @@ function roundToTwoDecimals(num) {
   return num;
 }
 
-function updateWeather(dates, temps, icons) {
-  showCurrentDayData(dates, temps, icons);
+function updateWeather(dates, temps, icons, place) {
+  showCurrentDayData(dates, temps, icons, place);
   showDayData(dates, "date");
   showDayData(temps, "temp");
   showDayData(icons, "N/A", true);
 }
 
-function showCurrentDayData(dates, temps, icons) {
+function showCurrentDayData(dates, temps, icons, place) {
+  const location = document.getElementById('location');
+  location.textContent = place;
+
   const currentDay = document
     .getElementById("current-day")
     .querySelector(".day");
