@@ -1,4 +1,13 @@
-Visually show weather data
+Visually show weather data (just need src, prob need fn findIconSrc(iconDescrip))
 (get img using giphy?, manual using icon description)
 
-Add loading 
+display locatiom
+
+changeTempScale button (detect if fahrenheit or celsius and switch)
+    detect by checking current day temp and comparing to fahrenheit current day or celsius current day
+    switch by convert to otherTypeFormula then using showDayData for day-container and manually change current-day data
+
+    problem potential: since add button fn, may not able access temp arrays (1 celsius, 1 fahrenheit)
+    solution: detect with current day but checking for 'C' or 'F' instead of using arrays
+
+Add loading (kinda pointless), so maybe add button that changes to random color in 3 seconds

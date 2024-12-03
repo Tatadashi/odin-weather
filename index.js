@@ -12,10 +12,20 @@ async function getWeather(location) {
     const temps = makeDayArrayFromJSON(days, "temp");
     const fahrenheit = convertCelsiusToFahrenheit(temps);
 
+    //WIP
+    // const url = getIconUrlWithName('clear-day');
+    // console.log(url);
     updateWeather(dates, fahrenheit, icons);
   } catch (error) {
     alert("Location Not Found");
   }
+}
+
+//WIP
+async function getIconUrlWithName(iconName) {
+    const iconUrl = await import(`./icons/${iconName}.svg`);
+    console.log(iconUrl);
+    return iconUrl;
 }
 
 function makeDayArrayFromJSON(json, data) {
@@ -73,29 +83,33 @@ function roundToTwoDecimals(num) {
   return num;
 }
 
-function updateWeather (dates, temps, icons) {
+function updateWeather(dates, temps, icons) {
   showCurrentDayData(dates, temps, icons);
-    showDayData(dates, 'date');
-    showDayData(temps, 'temp');
-    showDayData(icons, 'N/A', true);
+  showDayData(dates, "date");
+  showDayData(temps, "temp");
+  showDayData(icons, "N/A", true);
 }
 
-function showCurrentDayData (dates, temps, icons) {
-  const currentDay = document.getElementById('current-day').querySelector('.day');
-  currentDay.querySelector('.date').textContent = dates[0];
+function showCurrentDayData(dates, temps, icons) {
+  const currentDay = document
+    .getElementById("current-day")
+    .querySelector(".day");
+  currentDay.querySelector(".date").textContent = dates[0];
   currentDay.querySelector(".temp").textContent = temps[0];
   // currentDay.querySelector('img').src = icons[0];
   currentDay.querySelector("img").alt = icons[0];
 }
 
-function showDayData (data, dataName, isIcon=false) {
-  const days = document.getElementById('days-container').querySelectorAll('.day');
+function showDayData(data, dataName, isIcon = false) {
+  const days = document
+    .getElementById("days-container")
+    .querySelectorAll(".day");
 
   //current day not included, so starts at 1
   let iterator = 1;
-  days.forEach(day => {
+  days.forEach((day) => {
     if (isIcon) {
-      day = day.querySelector('img');
+      day = day.querySelector("img");
       // day.src = data[iterator];
       day.alt = data[iterator];
       iterator++;
