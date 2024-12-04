@@ -1,3 +1,5 @@
+import './style.css';
+
 async function getWeather(location) {
   try {
     const response = await fetch(
@@ -12,8 +14,6 @@ async function getWeather(location) {
     const temps = makeDayArrayFromJSON(days, "temp");
     const fahrenheit = convertCelsiusToFahrenheit(temps);
 
-    const url = getIconUrlWithName('clear-day');
-    console.log(url);
     updateWeather(dates, fahrenheit, icons, place);
   } catch (error) {
     alert("Location Not Found");
@@ -23,8 +23,8 @@ async function getWeather(location) {
 //WIP
 async function getIconUrlWithName(iconName) {
     const iconUrl = await import(`./icons/${iconName}.svg`);
-    console.log(iconUrl);
-    return iconUrl;
+    const day = document.getElementById('current-day').querySelector('img');
+    day.src = iconUrl.default;
 }
 
 function makeDayArrayFromJSON(json, data) {

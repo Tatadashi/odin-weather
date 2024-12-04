@@ -1,5 +1,7 @@
 Visually show weather data (just need src, prob need fn findIconSrc(iconDescrip))
-(get img using giphy?, manual using icon description)
+(manual using icon description)
+
+*****BUNDLE CODE, import image not work w/o ???, want to dynamic import
 
 display locatiom
 
