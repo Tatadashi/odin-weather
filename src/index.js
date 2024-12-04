@@ -129,9 +129,19 @@ function showDayData(data, dataName, isIcon = false) {
   });
 }
 
+function showAllData() {
+  const location = document.getElementById('location');
+  const currentDay = document.getElementById('current-day');
+  const daysContainer = document.getElementById('days-container');
+  location.style.visibility = "visible";
+  currentDay.style.visibility = "visible";
+  daysContainer.style.visibility = "visible";
+}
+
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  showAllData();
 
   let formData = new FormData(form);
   const location = formData.get("location");

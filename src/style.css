@@ -16,6 +16,7 @@ button {
 #current-day {
   display: flex;
   justify-content: center;
+  visibility: hidden;
 }
 
 #days-container {
@@ -25,6 +26,7 @@ button {
   gap: 10px;
   margin-inline: 50px;
   margin-top: 10px;
+  visibility: hidden;
 }
 
 .day {
