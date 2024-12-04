@@ -1,10 +1,3 @@
-Visually show weather data (just need src, prob need fn findIconSrc(iconDescrip))
-(manual using icon description)
-
-*****BUNDLE CODE, import image not work w/o ???, want to dynamic import
-
-display locatiom
-
 changeTempScale button (detect if fahrenheit or celsius and switch)
     detect by checking current day temp and comparing to fahrenheit current day or celsius current day
     switch by convert to otherTypeFormula then using showDayData for day-container and manually change current-day data

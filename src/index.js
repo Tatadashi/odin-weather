@@ -20,11 +20,15 @@ async function getWeather(location) {
   }
 }
 
-//WIP
 async function getIconUrlWithName(iconName) {
     const iconUrl = await import(`./icons/${iconName}.svg`);
-    const day = document.getElementById('current-day').querySelector('img');
-    day.src = iconUrl.default;
+    //iconUrl is module, iconUrl.default is url
+    return iconUrl.default;
+}
+
+async function setDayIcon (day, iconName) {
+  const iconUrl = await getIconUrlWithName(iconName);
+  day.src = iconUrl;
 }
 
 function makeDayArrayFromJSON(json, data) {
@@ -98,8 +102,10 @@ function showCurrentDayData(dates, temps, icons, place) {
     .querySelector(".day");
   currentDay.querySelector(".date").textContent = dates[0];
   currentDay.querySelector(".temp").textContent = temps[0];
-  // currentDay.querySelector('img').src = icons[0];
-  currentDay.querySelector("img").alt = icons[0];
+
+  const currentDayIcon = currentDay.querySelector('img');
+  setDayIcon(currentDayIcon, icons[0]);
+  currentDayIcon.alt = icons[0];
 }
 
 function showDayData(data, dataName, isIcon = false) {
@@ -112,7 +118,7 @@ function showDayData(data, dataName, isIcon = false) {
   days.forEach((day) => {
     if (isIcon) {
       day = day.querySelector("img");
-      // day.src = data[iterator];
+      setDayIcon(day, data[iterator]);
       day.alt = data[iterator];
       iterator++;
     } else {
