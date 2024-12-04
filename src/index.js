@@ -20,17 +20,6 @@ async function getWeather(location) {
   }
 }
 
-async function getIconUrlWithName(iconName) {
-    const iconUrl = await import(`./icons/${iconName}.svg`);
-    //iconUrl is module, iconUrl.default is url
-    return iconUrl.default;
-}
-
-async function setDayIcon (day, iconName) {
-  const iconUrl = await getIconUrlWithName(iconName);
-  day.src = iconUrl;
-}
-
 function makeDayArrayFromJSON(json, data) {
   const array = [];
   json.forEach((day) => {
@@ -39,6 +28,98 @@ function makeDayArrayFromJSON(json, data) {
   });
 
   return array;
+}
+
+function updateWeather(dates, temps, icons, place) {
+  showCurrentDayData(dates, temps, icons, place);
+  showDayData(dates, "date");
+  showDayData(temps, "temp");
+  showDayData(icons, "N/A", true);
+}
+
+function showCurrentDayData(dates, temps, icons, place) {
+  const location = document.getElementById('location');
+  location.textContent = place;
+
+  const currentDay = document
+    .getElementById("current-day")
+    .querySelector(".day");
+  currentDay.querySelector(".date").textContent = dates[0];
+  currentDay.querySelector(".temp").textContent = temps[0];
+
+  const currentDayIcon = currentDay.querySelector('img');
+  setDayIcon(currentDayIcon, icons[0]);
+  currentDayIcon.alt = icons[0];
+}
+
+function showDayData(data, dataName, isIcon = false) {
+  const days = document
+    .getElementById("days-container")
+    .querySelectorAll(".day");
+
+  //current day not included, so starts at 1
+  let iterator = 1;
+  days.forEach((day) => {
+    if (isIcon) {
+      day = day.querySelector("img");
+      setDayIcon(day, data[iterator]);
+      day.alt = data[iterator];
+      iterator++;
+    } else {
+      day = day.querySelector(`.${dataName}`);
+      day.textContent = data[iterator];
+      iterator++;
+    }
+  });
+}
+
+async function getIconUrlWithName(iconName) {
+  const iconUrl = await import(`./icons/${iconName}.svg`);
+  //iconUrl is module, iconUrl.default is url
+  return iconUrl.default;
+}
+
+async function setDayIcon(day, iconName) {
+  const iconUrl = await getIconUrlWithName(iconName);
+  day.src = iconUrl;
+}
+
+function addTempChangeButton() {
+  const tempButton = document.getElementById('temperature-button');
+  tempButton.addEventListener('click', (e) => {
+    changeTemperature();
+  });
+}
+
+function changeTemperature() {
+  const currentScale = checkTemperatureScale();
+  const currentTempsArray = getTemps();
+  let newTempsArray = [];
+
+  if (currentScale == 'F') {
+    newTempsArray = convertFahrenheitToCelsius(currentTempsArray);
+  } else if (currentScale == 'C') {
+    newTempsArray = convertCelsiusToFahrenheit(currentTempsArray);
+  }
+
+  updateTemps(newTempsArray);
+}
+
+function checkTemperatureScale() {
+  const currentDayTemp = document.getElementById('current-day').querySelector('.temp').textContent;
+  const currentTempScale = currentDayTemp.slice(-1);
+
+  return currentTempScale;
+}
+
+function getTemps() {
+  const tempsArray = [];
+  const temps = document.querySelectorAll(".temp");
+  temps.forEach(temp => {
+    tempsArray.push(temp.textContent);
+  });
+
+  return tempsArray;
 }
 
 function convertCelsiusToFahrenheit(temps) {
@@ -86,64 +167,37 @@ function roundToTwoDecimals(num) {
   return num;
 }
 
-function updateWeather(dates, temps, icons, place) {
-  showCurrentDayData(dates, temps, icons, place);
-  showDayData(dates, "date");
-  showDayData(temps, "temp");
-  showDayData(icons, "N/A", true);
+function updateTemps(tempsArray) {
+  const temps = document.querySelectorAll(".temp");
+  let iterator = 0;
+  temps.forEach((temp) => {
+    temp.textContent = tempsArray[iterator];
+    iterator++;
+  });
 }
 
-function showCurrentDayData(dates, temps, icons, place) {
-  const location = document.getElementById('location');
-  location.textContent = place;
+function addSearchButton() {
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    showAllData();
 
-  const currentDay = document
-    .getElementById("current-day")
-    .querySelector(".day");
-  currentDay.querySelector(".date").textContent = dates[0];
-  currentDay.querySelector(".temp").textContent = temps[0];
-
-  const currentDayIcon = currentDay.querySelector('img');
-  setDayIcon(currentDayIcon, icons[0]);
-  currentDayIcon.alt = icons[0];
-}
-
-function showDayData(data, dataName, isIcon = false) {
-  const days = document
-    .getElementById("days-container")
-    .querySelectorAll(".day");
-
-  //current day not included, so starts at 1
-  let iterator = 1;
-  days.forEach((day) => {
-    if (isIcon) {
-      day = day.querySelector("img");
-      setDayIcon(day, data[iterator]);
-      day.alt = data[iterator];
-      iterator++;
-    } else {
-      day = day.querySelector(`.${dataName}`);
-      day.textContent = data[iterator];
-      iterator++;
-    }
+    let formData = new FormData(form);
+    const location = formData.get("location");
+    getWeather(location);
   });
 }
 
 function showAllData() {
-  const location = document.getElementById('location');
-  const currentDay = document.getElementById('current-day');
-  const daysContainer = document.getElementById('days-container');
+  const location = document.getElementById("location");
+  const currentDay = document.getElementById("current-day");
+  const daysContainer = document.getElementById("days-container");
+  const temperatureButton = document.getElementById('temperature-button');
   location.style.visibility = "visible";
   currentDay.style.visibility = "visible";
   daysContainer.style.visibility = "visible";
+  temperatureButton.style.visibility = 'visible';
 }
 
-const form = document.querySelector("form");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  showAllData();
-
-  let formData = new FormData(form);
-  const location = formData.get("location");
-  getWeather(location);
-});
+addSearchButton();
+addTempChangeButton();
