@@ -12,6 +12,45 @@ button {
   margin-block: 10px;
 }
 
+#loader-wrapper {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: aquamarine;
+}
+
+span {
+  display: block;
+  height: 100%;
+}
+
+#loader {
+  height: 30px;
+  width: 80%;
+  background-color: plum;
+}
+
+#loader-outer {
+  background-color: blueviolet;
+  animation: progressBar 1.5s;
+}
+
+@keyframes progressBar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 #location,
 #current-day {
   display: flex;

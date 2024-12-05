@@ -1,4 +1,4 @@
-import './style.css';
+import "./style.css";
 
 async function getWeather(location) {
   try {
@@ -38,7 +38,7 @@ function updateWeather(dates, temps, icons, place) {
 }
 
 function showCurrentDayData(dates, temps, icons, place) {
-  const location = document.getElementById('location');
+  const location = document.getElementById("location");
   location.textContent = place;
 
   const currentDay = document
@@ -47,7 +47,7 @@ function showCurrentDayData(dates, temps, icons, place) {
   currentDay.querySelector(".date").textContent = dates[0];
   currentDay.querySelector(".temp").textContent = temps[0];
 
-  const currentDayIcon = currentDay.querySelector('img');
+  const currentDayIcon = currentDay.querySelector("img");
   setDayIcon(currentDayIcon, icons[0]);
   currentDayIcon.alt = icons[0];
 }
@@ -85,8 +85,8 @@ async function setDayIcon(day, iconName) {
 }
 
 function addTempChangeButton() {
-  const tempButton = document.getElementById('temperature-button');
-  tempButton.addEventListener('click', (e) => {
+  const tempButton = document.getElementById("temperature-button");
+  tempButton.addEventListener("click", (e) => {
     changeTemperature();
   });
 }
@@ -96,9 +96,9 @@ function changeTemperature() {
   const currentTempsArray = getTemps();
   let newTempsArray = [];
 
-  if (currentScale == 'F') {
+  if (currentScale == "F") {
     newTempsArray = convertFahrenheitToCelsius(currentTempsArray);
-  } else if (currentScale == 'C') {
+  } else if (currentScale == "C") {
     newTempsArray = convertCelsiusToFahrenheit(currentTempsArray);
   }
 
@@ -106,7 +106,9 @@ function changeTemperature() {
 }
 
 function checkTemperatureScale() {
-  const currentDayTemp = document.getElementById('current-day').querySelector('.temp').textContent;
+  const currentDayTemp = document
+    .getElementById("current-day")
+    .querySelector(".temp").textContent;
   const currentTempScale = currentDayTemp.slice(-1);
 
   return currentTempScale;
@@ -115,7 +117,7 @@ function checkTemperatureScale() {
 function getTemps() {
   const tempsArray = [];
   const temps = document.querySelectorAll(".temp");
-  temps.forEach(temp => {
+  temps.forEach((temp) => {
     tempsArray.push(temp.textContent);
   });
 
@@ -192,11 +194,11 @@ function showAllData() {
   const location = document.getElementById("location");
   const currentDay = document.getElementById("current-day");
   const daysContainer = document.getElementById("days-container");
-  const temperatureButton = document.getElementById('temperature-button');
+  const temperatureButton = document.getElementById("temperature-button");
   location.style.visibility = "visible";
   currentDay.style.visibility = "visible";
   daysContainer.style.visibility = "visible";
-  temperatureButton.style.visibility = 'visible';
+  temperatureButton.style.visibility = "visible";
 }
 
 addSearchButton();
