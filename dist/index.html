@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="shortcut icon" href="#">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script defer src="main.js"></script></head>
+  <body>
+    <!--add hidden if preload measures no work-->
+    <div id="content">
+      <form>
+      <p>
+        <label for="location-input"
+          >Enter location you wish to see weather for</label
+        >
+        <input
+          type="text"
+          pattern="[a-zA-Z ]+"
+          name="location"
+          id="location-input"
+          required
+        />
+      </p>
+      <button type="submit">Search</button>
+      </form>
+      <h1 id="location"></h1>
+      <div id="current-day">
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+      </div>
+      <div id="days-container">
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+        <div class="day">
+          <h3 class="date"></h3>
+          <h2 class="temp"></h2>
+          <img src="" alt="" />
+        </div>
+      </div>
+      <button id="temperature-button">Change Temperature Scale</button>
+    </div>
+    <div id="loader-wrapper">
+      <div id="loader">Loading</div>
+    </div>
+
+    <script>
+      $(window).on("load", function() {
+        $("load-wrapper").fadeOut("slow");
+      });
+    </script>
+  </body>
+</html>
